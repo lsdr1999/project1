@@ -38,6 +38,7 @@
                     {% for book in books %}
                     <tbody>
                         <tr>
+                            <td style="padding: 10px">{{book.title}}</td>
                             <td style="padding: 10px">{{book.author}}</td>
                             <td style="padding: 10px">{{book.isbn}}</td>
                             <td style="padding: 10px"><a href="{{ url_for('book', book_id=book.id) }}">Details</a></td>
