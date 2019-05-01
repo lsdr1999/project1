@@ -5,52 +5,50 @@
 {% endblock %}
 
 {% block main %}
-<div class="col-md-10 offset-md-1">
-    <header>
-        <h4 class="text-center">Search for books</h4>
-    </header>
-
-    <form action="{{ url_for('search') }}" method="post">
-        <div class="form-group">
-            <input class="form-control" name="search" placeholder="Search with ISBN, title or author" type="text" required>
+    <div class="col-md-10 offset-md-1">
+        <header>
+            <h4 class="text-center">Search for books:</h4>
             <br>
-            <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-    </form>
+        </header>
 
-    <br><br>
-
-    <div class="d-flex justify-content-center">
-        <table>
-            {% if search == 0 %}
+        <form action="{{ url_for('search') }}" method="post">
+            <div class="form-group">
+                <input class="form-control" name="search" placeholder="Search with ISBN, title or author" type="text" required>
                 <br>
-            {% else %}
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+        <br><br>
+
+        <div class="d-flex justify-content-center">
+            <table>
                 {% if not search %}
                     <br>
                 {% elif no_books %}
-                    <h4 class="text-danger text-center">We don't have the book(s) you are looking for, please try again</h4>
+                    <h6 class="text-danger text-center">We don't have the book(s) you are looking for, please try again</h6>
                 {% else %}
-                    <thead class="thead">
+                    <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>ISBN</th>
-                            <th>More information</th>
+                            # het lukte hier niet om de padding toe te voegen via scss, mogelijk door jinja
+                            <th style="padding: 10px">Title</th>
+                            <th style="padding: 10px">Author</th>
+                            <th style="padding: 10px">ISBN</th>
+                            <th style="padding: 10px">More information</th>
                         </tr>
                     </thead>
                     {% for book in books %}
                     <tbody>
                         <tr>
-                            <td>{{book.title}}</td>
-                            <td>{{book.author}}</td>
-                            <td>{{book.isbn}}</td>
-                            <td><a href="{{ url_for('book', book_id=book.id) }}">Details</a></td>
+                            # het lukte hier niet om de padding toe te voegen, mogelijk door jinja
+                            <td style="padding: 10px">{{book.title}}</td>
+                            <td style="padding: 10px">{{book.author}}</td>
+                            <td style="padding: 10px">{{book.isbn}}</td>
+                            <td style="padding: 10px"><a href="{{ url_for('book', book_id=book.id) }}">Details</a></td>
                         </tr>
                     </tbody>
                     {% endfor %}
                 {% endif %}
-            {% endif %}
-        </table>
+            </table>
+        </div>
     </div>
-</div>
 {% endblock %}

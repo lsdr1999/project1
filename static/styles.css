@@ -1,0 +1,69 @@
+.movingintro1 {
+  height: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+.movingintro1 {
+  font: 93% "Avenir", Helvetica, sans-serif;
+}
+
+footer {
+  text-align: center;
+  font-size: 9px;
+}
+
+.movingintro1 p {
+  font-size: 20px;
+  color: black;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  line-height: 30px;
+  text-align: center;
+  /* Starting position */
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  /* Apply animation to this element */
+  -moz-animation: movingintro1 25s linear infinite;
+  -webkit-animation: movingintro1 25s linear infinite;
+  animation: movingintro1 25s linear infinite;
+}
+
+/* Move it (define the animation) */
+@-moz-keyframes movingintro1 {
+  0% {
+    -moz-transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+  }
+}
+@-webkit-keyframes movingintro1 {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
+}
+@keyframes movingintro1 {
+  0% {
+    -moz-transform: translateX(100%);
+    /* Firefox bug fix */
+    -webkit-transform: translateX(100%);
+    /* Firefox bug fix */
+    transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+    /* Firefox bug fix */
+    -webkit-transform: translateX(-100%);
+    /* Firefox bug fix */
+    transform: translateX(-100%);
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

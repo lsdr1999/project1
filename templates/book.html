@@ -1,75 +1,76 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Book
+    {{book.title}}
 {% endblock %}
 
 {% block main %}
+    <header>
+        <h3 class="text-center">{{book.title}}</h3>
+        <br>
+    </header>
 
-    <h3 class="text-center">{{book.title}}</h3>
-    <br>
-
-    <div class="row">
-        <div class="col-6">
-            <h5>Details:</h5>
-            {% if no_book %}
-                <li>We don't have the book(s) you are looking for, please try again</li>
-            {% else %}
-                <ul>
-                    <li>Title: {{book.title}}</li>
-                    <li>Author: {{book.author}}</li>
-                    <li>Year: {{book.year}}</li>
-                    <li>ISBN: {{book.isbn}}</li>
-                </ul>
-            {% endif %}
-            <hr>
-
-            <h5>Goodreads Review:</h5>
-            <ul>
-                <li>Ratings: {{work_ratings_count}}</li>
-                <li>Average: {{average_rating}} / 5</li>
-            </ul>
-            <hr>
-        </div>
-
-        <div class="col-6">
-            <div>
-                <form action="{{url_for('book', book_id=book.id)}}" method="post">
-                    <h5>Add a review:</h5>
-                    <br>
-
-                    <textarea rows="4" cols="30" name="review" placeholder="Say something about this book!" required></textarea>
-
-                    <br>
-
-                    Average rate: <select name="rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option selected value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select> of 5
-
-                    <br><br>
-
-                    <button class="btn btn-primary" type="submit">Submit review</button>
-                </form>
-            </div>
-        </div>
-        
-        <div class="col-6">
-            <h5>Users reviews:</h5>
-            <ul>
-                {% for review in reviews %}
-                    <hr>
-                    <li>Name: {{review.username}}</li>
-                    <li>Review: {{review.review}}</li>
-                    <li>Rating: {{review.rating}} / 5</li>
-                    <hr>
+    <div class= "col-md-10 offset-md-1">
+        <div class="row">
+            <div class="col-md-6 col-md-push-6">
+                <h5>Details:</h5>
+                {% if no_book %}
+                    <li>We don't have the book(s) you are looking for, please try again</li>
                 {% else %}
-                    <h6>No reviews submitted for this book</h6>
-                {% endfor %}
-            </ul>
+                    <ul>
+                        <li>Title: {{book.title}}</li>
+                        <li>Author: {{book.author}}</li>
+                        <li>Year: {{book.year}}</li>
+                        <li>ISBN: {{book.isbn}}</li>
+                    </ul>
+                {% endif %}
+                <hr>
+
+                <h5>Goodreads Review:</h5>
+                <ul>
+                    <li>Ratings: {{work_ratings_count}}</li>
+                    <li>Average rate: {{average_rating}} / 5</li>
+                </ul>
+                <hr>
+            </div>
+
+            <div class="col-md-6 col-md-pull-6">
+                <div>
+                    <form action="{{ url_for('book', book_id=book.id) }}" method="post">
+                        <h5>Add a review:</h5>
+                        <br>
+                        <textarea rows="4" cols="30" name="review" placeholder="Say something about this book!" required></textarea>
+                        <br>
+                        Average rate:
+                        <select name="rating">
+                            <option selected value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select> of 5
+                        <br><br>
+                        <button class="btn btn-primary" type="submit">Submit review</button>
+                    </form>
+                </div>
+                <br>
+            </div>
+            
+            <div class="col-6">
+                <h5>Users reviews:</h5>
+                <ul>
+                    {% for review in reviews %}
+                        <hr>
+                        <li>Name: {{review.username}}</li>
+                        <li>Review: {{review.review}}</li>
+                        <li>Rating: {{review.rating}} / 5</li>
+                        <hr>
+                    {% else %}
+                        <h6>No reviews submitted for this book</h6>
+                    {% endfor %}
+                </ul>
+            </div>
+
         </div>
     </div>
 {% endblock %}

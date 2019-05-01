@@ -18,7 +18,7 @@ if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
 # Configure session to use filesystem
-app.config['JSON_SORT_KEYS'] = False
+app.config["JSON_SORT_KEYS"] = False
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
@@ -30,7 +30,7 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    # Forget any user_id
+    # Forget any user_id (session.clear() did not work)
     session["user_id"] = None
     session["username"] = None
 
@@ -41,7 +41,7 @@ def index():
 def register():
     """Register user"""
 
-    # Forget any user_id
+    # Forget any user_id (session.clear() did not work)
     session["user_id"] = None
     session["username"] = None
 
@@ -87,7 +87,7 @@ def register():
 def login():
     """"Log user in"""
 
-    # Forget any user_id
+    # Forget any user_id (session.clear() did not work)
     session["user_id"] = None
     session["username"] = None
 
@@ -119,16 +119,18 @@ def login():
     else:
         return render_template("login.html")
 
+
 @app.route("/logout")
 def logout():
     """Log user out"""
 
-    # Forget any user_id
+    # Forget any user_id (session.clear() did not work)
     session["user_id"] = None
     session["username"] = None
 
     # Redirect user to homepage
     return render_template("index.html")
+
 
 @app.route("/search", methods=["GET", "POST"])
 @login_required
@@ -149,6 +151,7 @@ def search():
 
     else:
         return render_template("search.html", no_books=True, search=False)
+
 
 @app.route("/book/<int:book_id>", methods=["GET", "POST"])
 @login_required
@@ -199,6 +202,7 @@ def book(book_id):
     else:
         # User reached route via GET (as by clicking a link or via redirect)
         return render_template("book.html", reviews=reviews, book=book, work_ratings_count=work_ratings_count, average_rating=average_rating, username=session["username"])
+
 
 @app.route("/api/<string:isbn>", methods=["GET"])
 def api(isbn):
